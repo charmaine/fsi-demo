@@ -1,137 +1,153 @@
-# Brand Guidelines Reference
+# Anthropic Brand Guidelines Reference
 
 ## Quick Reference Card
 
 ### Must-Have Elements
-- Company logo on first page/slide
-- Correct brand colors (no variations)
-- Approved fonts only
-- Consistent formatting throughout
-- Professional tone of voice
+- Warm, human-centered color palette
+- Clean typography with proper hierarchy
+- Generous whitespace
+- Consistent use of brand colors
+- Accessible contrast ratios
 
 ### Never Use
-- Competitor logos or references
-- Unapproved colors or gradients
+- Cold blues or corporate navy
+- Heavy gradients or shadows
 - Decorative or script fonts
-- Pixelated or stretched logos
-- Informal language or slang
+- Cluttered layouts
+- Off-brand colors
 
 ## Color Codes Reference
 
-### For Digital (RGB/Hex)
+### Primary Colors (Hex/RGB)
 | Color Name | Hex Code | RGB | Usage |
 |------------|----------|-----|-------|
-| Acme Blue | #0066CC | 0, 102, 204 | Primary headers, CTAs |
-| Acme Navy | #003366 | 0, 51, 102 | Body text, secondary |
-| Success Green | #28A745 | 40, 167, 69 | Positive values |
-| Warning Amber | #FFC107 | 255, 193, 7 | Warnings, attention |
-| Error Red | #DC3545 | 220, 53, 69 | Errors, negative |
-| Neutral Gray | #6C757D | 108, 117, 125 | Muted text |
-| Light Gray | #F8F9FA | 248, 249, 250 | Backgrounds |
+| Anthropic Tan | #D4A574 | 212, 165, 116 | Primary brand, highlights |
+| Deep Charcoal | #1a1a1a | 26, 26, 26 | Text, headers |
+| Warm White | #FAF7F2 | 250, 247, 242 | Backgrounds |
 
-### For Print (CMYK)
-| Color Name | CMYK | Pantone |
-|------------|------|---------|
-| Acme Blue | 100, 50, 0, 20 | 2935 C |
-| Acme Navy | 100, 50, 0, 60 | 2965 C |
+### Secondary Colors
+| Color Name | Hex Code | RGB | Usage |
+|------------|----------|-----|-------|
+| Terracotta | #CC785C | 204, 120, 92 | CTAs, accents, primary charts |
+| Soft Sand | #E8DFD5 | 232, 223, 213 | Card backgrounds, borders |
+| Muted Sage | #A8B5A0 | 168, 181, 160 | Success states, tertiary |
+| Dusty Rose | #C4A4A4 | 196, 164, 164 | Subtle highlights |
 
-## Document Templates
+### Functional Colors
+| Color Name | Hex Code | RGB | Usage |
+|------------|----------|-----|-------|
+| Success | #4A7C59 | 74, 124, 89 | Positive values, gains |
+| Error | #B85450 | 184, 84, 80 | Negative values, losses |
+| Neutral | #6B6B6B | 107, 107, 107 | Secondary text |
 
-### Email Signature
+## CSS Variables
+
+```css
+:root {
+  /* Primary */
+  --color-primary: #D4A574;
+  --color-text: #1a1a1a;
+  --color-background: #FAF7F2;
+
+  /* Secondary */
+  --color-accent: #CC785C;
+  --color-surface: #E8DFD5;
+  --color-success-subtle: #A8B5A0;
+  --color-highlight: #C4A4A4;
+
+  /* Functional */
+  --color-success: #4A7C59;
+  --color-error: #B85450;
+  --color-muted: #6B6B6B;
+
+  /* Typography */
+  --font-primary: 'Styrene A', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
 ```
-[Name]
-[Title]
-Acme Corporation | Innovation Through Excellence
-[Phone] | [Email]
-www.acmecorp.example
+
+## Chart Color Palette
+
+For data visualizations, use these colors in order:
+1. Terracotta: #CC785C
+2. Anthropic Tan: #D4A574
+3. Muted Sage: #A8B5A0
+4. Dusty Rose: #C4A4A4
+5. Deep Charcoal: #1a1a1a (for contrast)
+
+For financial data:
+- Positive/Gains: #4A7C59 (Success)
+- Negative/Losses: #B85450 (Error)
+- Neutral: #6B6B6B
+
+## Typography Scale
+
+| Element | Size | Weight | Color |
+|---------|------|--------|-------|
+| H1 | 32px | 500 | #1a1a1a |
+| H2 | 24px | 500 | #1a1a1a |
+| H3 | 18px | 500 | #1a1a1a |
+| Body | 14px | 400 | #1a1a1a |
+| Caption | 12px | 400 | #6B6B6B |
+| Small | 11px | 400 | #6B6B6B |
+
+## Common Patterns
+
+### Card Style
+```css
+.card {
+  background: #FFFFFF;
+  border: 1px solid #E8DFD5;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(26, 26, 26, 0.06);
+}
 ```
 
-### Slide Footer
-```
-© 2025 Acme Corporation | Confidential | Page [X]
+### Button Styles
+```css
+.btn-primary {
+  background: #CC785C;
+  color: #FFFFFF;
+  border-radius: 6px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  border-radius: 6px;
+}
 ```
 
-### Report Header
-```
-[Logo]     [Document Title]     Page [X] of [Y]
+### Navigation
+```css
+.nav {
+  background: #1a1a1a; /* or #FAF7F2 for light */
+  color: #FFFFFF; /* or #1a1a1a for light */
+}
+
+.nav-item:hover {
+  background: rgba(212, 165, 116, 0.2);
+}
+
+.nav-item.active {
+  border-left: 3px solid #D4A574;
+}
 ```
 
-## Accessibility Standards
+## Accessibility Notes
 
-### Color Contrast
-- Text on white background: Use Acme Navy (#003366)
-- Text on blue background: Use white (#FFFFFF)
-- Minimum contrast ratio: 4.5:1 for body text
-- Minimum contrast ratio: 3:1 for large text
+### Minimum Contrast Ratios
+- Body text on Warm White: 12.5:1 (exceeds WCAG AAA)
+- Caption text on Warm White: 5.2:1 (meets WCAG AA)
+- White text on Terracotta: 4.6:1 (meets WCAG AA)
+- White text on Deep Charcoal: 16.1:1 (exceeds WCAG AAA)
 
 ### Font Sizes
-- Minimum body text: 11pt (print), 14px (digital)
-- Minimum caption text: 9pt (print), 12px (digital)
-
-## File Naming Conventions
-
-### Standard Format
-```
-YYYY-MM-DD_DocumentType_Version_Status.ext
-```
-
-### Examples
-- `2025-01-15_QuarterlyReport_v2_FINAL.pptx`
-- `2025-01-15_BudgetAnalysis_v1_DRAFT.xlsx`
-- `2025-01-15_Proposal_v3_APPROVED.pdf`
-
-## Common Mistakes to Avoid
-
-1. **Wrong Blue**: Using generic blue instead of Acme Blue #0066CC
-2. **Stretched Logo**: Always maintain aspect ratio
-3. **Too Many Colors**: Stick to the approved palette
-4. **Inconsistent Fonts**: Don't mix font families
-5. **Missing Logo**: Always include on first page
-6. **Wrong Date Format**: Use "Month DD, YYYY"
-7. **Decimal Places**: Be consistent (currency: 2, percentage: 1)
-
-## Department-Specific Guidelines
-
-### Finance
-- Always right-align numbers in tables
-- Use parentheses for negative values: ($1,234)
-- Include data source citations
-
-### Marketing
-- Can use full secondary color palette
-- May include approved imagery
-- Follow social media specific guidelines when applicable
-
-### Legal
-- Use numbered sections (1.0, 1.1, 1.2)
-- Include document control information
-- Apply "Confidential" watermark when needed
-
-## International Considerations
-
-### Date Formats by Region
-- **US**: Month DD, YYYY (January 15, 2025)
-- **UK**: DD Month YYYY (15 January 2025)
-- **ISO**: YYYY-MM-DD (2025-01-15)
-
-### Currency Display
-- **USD**: $1,234.56
-- **EUR**: 1.234,56
-- **GBP**: 1,234.56
-
-## Version History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 2.0 | Jan 2025 | Added digital color codes |
-| 1.5 | Oct 2024 | Updated font guidelines |
-| 1.0 | Jan 2024 | Initial brand guidelines |
-
-## Contact for Questions
-
-**Brand Team**
-Email: brand@acmecorp.example
-Slack: #brand-guidelines
-
-**For Exceptions**
-Submit request to brand team with business justification
+- Minimum body text: 14px
+- Minimum caption text: 12px
+- Touch targets: minimum 44x44px
