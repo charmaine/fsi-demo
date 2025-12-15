@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WealthView Pro - Portfolio Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Navigation -->
+    <header class="top-nav">
+      <div class="logo">
+        <span class="logo-text">WealthView Pro</span>
+      </div>
+      <nav class="main-nav">
+        <a href="#" class="nav-item active">Overview</a>
+        <a href="#" class="nav-item">Portfolio</a>
+        <a href="#" class="nav-item">Accounts</a>
+        <a href="#" class="nav-item">Research</a>
+        <a href="#" class="nav-item">Reports</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="user-avatar">JD</div>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-item" data-view="overview">
+          <span>Overview</span>
+        </a>
+        <a href="#" class="sidebar-item active" data-view="holdings">
+          <span>Holdings</span>
+        </a>
+        <a href="#" class="sidebar-item" data-view="performance">
+          <span>Performance</span>
+        </a>
+        <a href="#" class="sidebar-item" data-view="transactions">
+          <span>Transactions</span>
+        </a>
+        <a href="#" class="sidebar-item" data-view="watchlist">
+          <span>Watchlist</span>
+        </a>
+        <a href="#" class="sidebar-item" data-view="markets">
+          <span>Markets</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="market-status">
+          <span class="status-dot open"></span>
+          <span>Market Open</span>
+        </div>
+        <div class="last-updated">Updated: <span id="lastUpdate">--</span></div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Overview View -->
+      <div id="view-overview" class="view">
+        <div class="page-header">
+          <h1>Portfolio Overview</h1>
+          <div class="header-actions">
+            <select class="period-select">
+              <option>Today</option>
+              <option>1 Week</option>
+              <option selected>1 Month</option>
+              <option>YTD</option>
+              <option>1 Year</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="card-label">Total Value</div>
+            <div class="card-value" id="totalValue">$0.00</div>
+            <div class="card-change positive" id="totalChange">+$0.00 (0.00%)</div>
+          </div>
+          <div class="summary-card">
+            <div class="card-label">Day's Gain/Loss</div>
+            <div class="card-value" id="dayGain">$0.00</div>
+            <div class="card-change" id="dayGainPercent">0.00%</div>
+          </div>
+          <div class="summary-card">
+            <div class="card-label">Total Gain/Loss</div>
+            <div class="card-value" id="totalGain">$0.00</div>
+            <div class="card-change" id="totalGainPercent">0.00%</div>
+          </div>
+          <div class="summary-card">
+            <div class="card-label">Cash Balance</div>
+            <div class="card-value" id="cashBalance">$0.00</div>
+            <div class="card-subtext">Available to invest</div>
+          </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section">
+          <div class="section-header">
+            <h2>Portfolio Performance</h2>
+            <div class="chart-toggles">
+              <button class="toggle-btn active">Value</button>
+              <button class="toggle-btn">Returns</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="portfolioChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Two Column Layout -->
+        <div class="two-column">
+          <!-- Allocation -->
+          <div class="panel">
+            <div class="section-header">
+              <h2>Asset Allocation</h2>
+            </div>
+            <div class="allocation-chart">
+              <canvas id="allocationChart"></canvas>
+            </div>
+            <div class="allocation-legend" id="allocationLegend"></div>
+          </div>
+
+          <!-- Top Holdings -->
+          <div class="panel">
+            <div class="section-header">
+              <h2>Top Holdings</h2>
+              <a href="#" class="view-all" data-view="holdings">View All →</a>
+            </div>
+            <div class="top-holdings" id="topHoldings"></div>
+          </div>
+        </div>
+
+        <!-- Market Indices -->
+        <div class="panel">
+          <div class="section-header">
+            <h2>Market Indices</h2>
+          </div>
+          <div class="indices-grid" id="indicesGrid"></div>
+        </div>
+      </div>
+
+      <!-- Holdings View -->
+      <div id="view-holdings" class="view" style="display: none;">
+        <div class="page-header">
+          <h1>Holdings</h1>
+          <div class="header-actions">
+            <div class="view-toggle">
+              <button class="toggle-btn active" title="List View">☰</button>
+              <button class="toggle-btn" title="Grid View">⊞</button>
+            </div>
+            <div class="filter-tabs">
+              <button class="filter-tab active">Active</button>
+              <button class="filter-tab">Closed</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="holdings-table-container">
+          <table class="holdings-table">
+            <thead>
+              <tr>
+                <th class="sortable" data-sort="name">Name</th>
+                <th class="sortable" data-sort="date">First Activity</th>
+                <th class="sortable" data-sort="value">Value</th>
+                <th class="sortable active" data-sort="allocation">Allocation ↓</th>
+                <th class="sortable" data-sort="change">Change</th>
+                <th class="sortable" data-sort="performance">Performance</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <button class="secondary-btn">Manage Activities</button>
+          <div class="pagination">
+            <span>Showing 1-10 of 15</span>
+            <button class="page-btn">←</button>
+            <button class="page-btn">→</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance View -->
+      <div id="view-performance" class="view" style="display: none;">
+        <div class="page-header">
+          <h1>Performance</h1>
+          <div class="header-actions">
+            <select class="period-select">
+              <option>1 Month</option>
+              <option>3 Months</option>
+              <option selected>YTD</option>
+              <option>1 Year</option>
+              <option>All Time</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="performance-summary">
+          <div class="perf-card">
+            <div class="perf-label">Time-Weighted Return</div>
+            <div class="perf-value positive" id="twrr">+12.45%</div>
+          </div>
+          <div class="perf-card">
+            <div class="perf-label">Money-Weighted Return</div>
+            <div class="perf-value positive" id="mwrr">+11.82%</div>
+          </div>
+          <div class="perf-card">
+            <div class="perf-label">vs S&P 500</div>
+            <div class="perf-value positive" id="vsBenchmark">+2.31%</div>
+          </div>
+        </div>
+
+        <div class="chart-section">
+          <div class="section-header">
+            <h2>Cumulative Returns</h2>
+          </div>
+          <div class="chart-container large">
+            <canvas id="performanceChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transactions View -->
+      <div id="view-transactions" class="view" style="display: none;">
+        <div class="page-header">
+          <h1>Transactions</h1>
+          <div class="header-actions">
+            <button class="primary-btn">+ Add Transaction</button>
+          </div>
+        </div>
+
+        <div class="transactions-filters">
+          <select class="filter-select">
+            <option>All Types</option>
+            <option>Buy</option>
+            <option>Sell</option>
+            <option>Dividend</option>
+            <option>Transfer</option>
+          </select>
+          <input type="date" class="date-input" id="startDate">
+          <span>to</span>
+          <input type="date" class="date-input" id="endDate">
+        </div>
+
+        <div class="transactions-list" id="transactionsList"></div>
+      </div>
+
+      <!-- Watchlist View -->
+      <div id="view-watchlist" class="view" style="display: none;">
+        <div class="page-header">
+          <h1>Watchlist</h1>
+          <div class="header-actions">
+            <button class="primary-btn">+ Add Symbol</button>
+          </div>
+        </div>
+        <div class="watchlist-grid" id="watchlistGrid"></div>
+      </div>
+
+      <!-- Markets View -->
+      <div id="view-markets" class="view" style="display: none;">
+        <div class="page-header">
+          <h1>Markets</h1>
+        </div>
+
+        <div class="panel">
+          <div class="section-header">
+            <h2>Major Indices</h2>
+          </div>
+          <div class="indices-grid large" id="marketsIndices"></div>
+        </div>
+
+        <div class="panel">
+          <div class="section-header">
+            <h2>Sector Performance</h2>
+          </div>
+          <div class="sectors-grid" id="sectorsGrid"></div>
+        </div>
+
+        <div class="two-column">
+          <div class="panel">
+            <div class="section-header">
+              <h2>Top Gainers</h2>
+            </div>
+            <div class="movers-list" id="topGainers"></div>
+          </div>
+          <div class="panel">
+            <div class="section-header">
+              <h2>Top Losers</h2>
+            </div>
+            <div class="movers-list" id="topLosers"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
